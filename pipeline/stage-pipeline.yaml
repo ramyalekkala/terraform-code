@@ -1,0 +1,43 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  serviceConnection: 'terraform-service-connection'
+  workingDirectory: 'environments/stage'
+
+steps:
+
+- task: TerraformInstaller@1
+  inputs:
+    terraformVersion: '1.6.6'
+
+- task: TerraformTaskV4@4
+  displayName: Terraform Init
+  inputs:
+    provider: azurerm
+    command: init
+    workingDirectory: $(workingDirectory)
+    backendServiceArm: $(serviceConnection)
+    backendAzureRmResourceGroupName: rg-terraform-state
+    backendAzureRmStorageAccountName: tfstateprod123
+    backendAzureRmContainerName: tfstate
+    backendAzureRmKey: stage.tfstate
+
+- task: TerraformTaskV4@4
+  displayName: Terraform Plan
+  inputs:
+    provider: azurerm
+    command: plan
+    workingDirectory: $(workingDirectory)
+    environmentServiceNameAzureRM: $(serviceConnection)
+
+- task: TerraformTaskV4@4
+  displayName: Terraform Apply
+  inputs:
+    provider: azurerm
+    command: apply
+    workingDirectory: $(workingDirectory)
+    environmentServiceNameAzureRM: $(serviceConnection)
