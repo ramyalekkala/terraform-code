@@ -1,0 +1,16 @@
+rg_name = "rg-dev"
+location = "eastus"
+vnet_name = "vnet-dev"
+vnet_cidr = ["10.0.0.0/16"]
+subnet1_name = "subnet-dev-1"
+subnet1_cidr = ["10.0.1.0/24"]
+subnet2_name = "subnet-dev-2"
+subnet2_cidr = ["10.0.2.0/24"]
+app_subnet_name = "app-subnet-dev"
+app_subnet_cidr = ["10.0.3.0/24"]
+vm_name = "vm-dev"
+vault_name = "vault-dev"
+sql_admin_password = "your_sql_admin_password"
+aks_cluster_name = "aks-dev"
+sqlserver_name = "sqlserver-dev"
+database_name = "database-dev"
